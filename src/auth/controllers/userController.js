@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const userController = {
     getAllUsers: async (req, res) => {
         try {
-            const users = await User.find({}, 'username email role phone status');
+            const users = await User.find({}, 'username email role phone status address orders').populate('orders');
             res.status(200).json(users);
         } catch (error) {
             res.status(500).json({ message: 'Đã xảy ra lỗi khi lấy danh sách người dùng', error: error.message });

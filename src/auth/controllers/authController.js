@@ -145,7 +145,7 @@ const authController = {
     // Controller để gửi email đặt lại mật khẩu
     forgotPassword: async (req, res) => {
         try {
-            const { email } = req.body;
+            const { email, url } = req.body;
 
             // Tìm người dùng trong cơ sở dữ liệu bằng email
             const user = await User.findOne({ email });
@@ -162,7 +162,7 @@ const authController = {
             await user.save();
 
             // Gửi email chứa liên kết đặt lại mật khẩu đến người dùng
-            const resetLink = `${process.env.RESET_PASSWORD_URL}/${resetToken}`;
+            const resetLink = `${url}/${resetToken}`;
             const emailSubject = 'Reset Password';
             const emailText = `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetLink}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.`;
 
