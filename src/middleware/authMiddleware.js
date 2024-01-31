@@ -3,15 +3,19 @@ const jwt = require('jsonwebtoken');
 exports.authMiddleware = async (req, res, next) => {
     try {
         // Kiểm tra xem có tồn tại AccessToken trong header Authorization không
-        const accessToken = req.headers.authorization.split(' ')[1];
+        const authorizationHeader = req.headers.authorization;
+        if (!authorizationHeader) {
+            return res.status(401).json({ message: 'Không tìm thấy AccessToken trong tiêu đề Authorization' });
+        }
+
+        const accessToken = authorizationHeader.split(' ')[1];
         if (!accessToken) {
-            return res.status(401).json({ message: 'Không tìm thấy AccessToken' });
+            return res.status(401).json({ message: 'AccessToken không hợp lệ' });
         }
 
         // Giải mã AccessToken để lấy userId
         const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
         const userId = decodedToken.id;
-
 
         req.id = userId;
 
