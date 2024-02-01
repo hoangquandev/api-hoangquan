@@ -1,7 +1,8 @@
+// order.model.js
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Thay thế user bằng userId
     address: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     products: [{
@@ -10,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         price: { type: Number, required: true }
     }],
     status: { type: String, enum: ['Pending', 'Processing', 'Shipped', 'Delivered'], default: 'Pending' },
-    orderDate: { type: Date, required: true, default: Date.now },
+    orderDate: { type: Date, default: Date.now },
     deliveryDate: { type: Date },
     paymentMethod: { type: String, required: true },
     paymentStatus: { type: String, enum: ['pending', 'paid', 'cancel'], default: 'pending' },

@@ -91,7 +91,7 @@ const userController = {
         const userId = req.id; // Lấy ID của người dùng từ token xác thực
 
         try {
-            const user = await User.findById(userId).select('-password');
+            const user = await User.findById(userId).select('-password').populate('orders').populate('orders.products.productId');
 
             if (!user) {
                 return res.status(404).json({ message: 'Người dùng không tồn tại' });
