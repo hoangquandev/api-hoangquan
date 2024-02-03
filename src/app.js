@@ -9,6 +9,7 @@ const orderRoutes = require('./order/routes/orderRoutes')
 const userRoutes = require('./auth/routes/userRoutes');
 const compression = require('compression');
 const { default: helmet } = require('helmet');
+const errorHandler = require('./middleware/errorHandler');
 
 
 dotenv.config(); // Load các biến môi trường từ file .env
@@ -30,11 +31,13 @@ app.get("/", (req, res) => {
     res.send("Hello world!");
 });
 
+app.use(errorHandler);
 
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/orders', orderRoutes);
+
 
 module.exports = app;

@@ -9,7 +9,7 @@ const reviewController = {
 
         try {
             // Kiểm tra xem người dùng đã mua sản phẩm hay chưa
-            const order = await Order.findOne({ user: userId, 'products.productId': productId, paymentStatus: 'paid' });
+            const order = await Order.findOne({ userId: userId, 'products.productId': productId, paymentStatus: 'paid' });
             if (!order) {
                 return res.status(400).json({ message: 'Bạn không có quyền thêm đánh giá cho sản phẩm này' });
             }

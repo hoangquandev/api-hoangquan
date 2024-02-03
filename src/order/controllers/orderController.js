@@ -58,7 +58,7 @@ const orderController = {
     getOrderById: async (req, res) => {
         try {
             const orderId = req.params.orderId;
-            const order = await Order.findById(orderId).populate('user products.productId');
+            const order = await Order.findById(orderId).populate('userId products.productId');
             if (!order) {
                 return res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
             }
