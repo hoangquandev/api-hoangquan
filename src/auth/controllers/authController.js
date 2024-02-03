@@ -84,7 +84,7 @@ const authController = {
             }
 
             // Tạo Access Token với vai trò của người dùng
-            const accessToken = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
+            const accessToken = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15s' });
 
             // Tạo Refresh Token
             const refreshToken = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
@@ -133,7 +133,7 @@ const authController = {
 
 
             // Tạo một AccessToken mới
-            const accessToken = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
+            const accessToken = jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15s' });
 
             // Trả về AccessToken mới
             res.status(200).json({ accessToken });
